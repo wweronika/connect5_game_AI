@@ -1,22 +1,30 @@
 from tkinter import *
+import gameGraphics
 
 class Game:
 
     def __init__(self):
 
-        self.root = Tk() # initiallising the Tk object (graphics handler)
+        self.root = Tk() # initialising the Tk object (graphics handler)
+        self.gameGraphics = gameGraphics.GameGraphics(self.root)
 
-        self.gridFrame = Frame(self.root)
-        self.gridFrame.pack(side = LEFT) # align grid on the left
-        self.canvas = Canvas(root, bg="blue", width=600, height=600)
-        self.canvas.pack()
-        self.root.mainloop()
 
 
 
 if __name__ == "__main__":
     
     game = Game()
+
+    #temporary matrix for showcasing the x and o graphics 
+    # TODELETE later
+
+    m = [[0 for i in range(8)] for j in range(8)]
+    m[0][0] = "x"
+    m[0][1] = "o"
+
+    
+    game.gameGraphics.paintGrid(m)
+    game.root.mainloop()
 
 
 
