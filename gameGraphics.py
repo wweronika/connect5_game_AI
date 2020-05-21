@@ -46,19 +46,25 @@ class GameGraphics:
         else:
             self.paintX(x,y)
 
-        self.logic.isPlayer1 = not self.logic.isPlayer1
+        self.logic.singleMove(x,y)
         
     # paints an X in tile given coordinates
     def paintX(self,i,j):
 
         xStart = (self.width - 60 * self.size)/2 
         yStart = (self.height - 60 * self.size)/2
-        self.canvas.create_line(10 + xStart + i*60, 10 + yStart + j*60, xStart + 40 + i*60, yStart + 40 + j*60, width=4)
-        self.canvas.create_line(40 + xStart + i*60, 10 + yStart + j*60, xStart + 10 + i*60, yStart + 40 + j*60, width=4)
+        self.canvas.create_line(10 + xStart + i*60, 10 + yStart + j*60, xStart + 40 + i*60, yStart + 40 + j*60, width=4, tag="x")
+        self.canvas.create_line(40 + xStart + i*60, 10 + yStart + j*60, xStart + 10 + i*60, yStart + 40 + j*60, width=4, tag="x")
     
     # paints an O in tile given coordinates
     def paintO(self,i,j):
         xStart = (self.width - 60 * self.size)/2 
         yStart = (self.height - 60 * self.size)/2
-        self.canvas.create_oval(10 + xStart + i*60, 10 + yStart + j*60, xStart + 40 + i*60, yStart + 40 + j*60, fill="", outline="black", width=4)
+        self.canvas.create_oval(10 + xStart + i*60, 10 + yStart + j*60, xStart + 40 + i*60, yStart + 40 + j*60, fill="", outline="black", width=4, tag="o")
         
+    def newGame(self):
+        print(self.canvas.find_withtag("x"))
+        print(self.canvas.find_withtag("o"))
+        self.canvas.delete("x")
+        self.canvas.delete("o")
+        self.logic.newGame()
