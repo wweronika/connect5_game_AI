@@ -15,6 +15,8 @@ class MenuPanel:
             buttonValue.pack(side=TOP)
 
     def onClickButton(self, name):
+
         if name == "newgame":
             self.graphics.newGame()
+
 

@@ -10,7 +10,7 @@ class GameGraphics:
         self.gridFrame.pack(side = LEFT) # align grid on the left
         self.width = 680
         self.height = 680
-        self.size = 8
+        self.size = 3
         self.canvas = Canvas(self.gridFrame, bg="white", width=self.width, height=self.height) #create canvas inside the frame
         self.canvas.pack() # binding it with the rest
         self.logic = gameLogic.GameLogic(self.size)
@@ -39,15 +39,18 @@ class GameGraphics:
         x = (currentID - 1) // self.size
         y = (currentID - 1) % self.size
 
-        # player 1 move
-        if self.logic.isPlayer1:
-            self.paintO(x,y)
-        # player 2 move
-        else:
-            self.paintX(x,y)
+        if self.logic.singleMove(x,y):
+            # player 1 move
+            if self.logic.isPlayer1:
+                self.paintO(x,y)
+            # player 2 move
+            else:
+                self.paintX(x,y)
 
-        self.logic.singleMove(x,y)
-        
+        if self.logic.winningPlayer(self.size) != "":
+            print(self.logic.winningPlayer(self.size))
+            self.newGame()
+   
     # paints an X in tile given coordinates
     def paintX(self,i,j):
 
