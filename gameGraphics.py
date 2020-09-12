@@ -1,5 +1,6 @@
 from tkinter import *
 import gameLogic
+from QNetwork import QNetwork
 
 class GameGraphics:
 
@@ -13,7 +14,7 @@ class GameGraphics:
         self.size = 3
         self.canvas = Canvas(self.gridFrame, bg="white", width=self.width, height=self.height) #create canvas inside the frame
         self.canvas.pack() # binding it with the rest
-        self.logic = gameLogic.GameLogic(self.size)
+        self.logic = gameLogic.GameLogic(self.size, QNetwork("o", self.size), QNetwork("x", self.size))
 
     def paintGrid(self):
         
@@ -39,9 +40,10 @@ class GameGraphics:
         x = (currentID - 1) // self.size
         y = (currentID - 1) % self.size
 
-        if self.logic.singleMove(x,y):
+
+        if self.logic.placeAvailable(x,y):
             # player 1 move
-            if self.logic.isPlayer1:
+            if self.logic.isPlayer1:                        
                 self.paintO(x,y)
             # player 2 move
             else:
